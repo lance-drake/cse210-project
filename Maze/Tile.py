@@ -3,7 +3,7 @@ class Tile:
     def __init__ (self, number):
         self._number = number
         self._visited = False
-        self.walls = [False, False, False, False]#Left Right Top Bottom
+        self.walls = [True, True, True, True]#Left Right Top Bottom
 
     def getTileNumber(self):
         return self._number

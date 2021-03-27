@@ -6,15 +6,8 @@ class Builder:
         self.direction = []
         self.direction.append(1)
 
-    def moveDirection(self, length):
-        if self.direction[-1] == -length:
-            self._number += 1
-        elif self.direction[-1] == length:
-            self._number -= 1
-        elif self.direction[-1] == -1:
-            self._number -= 1
-        elif self.direction[-1] == 1:
-            self._number += 1
+    def moveDirection(self):
+        self._number += self.direction[-1]
     
     def getNextDirection(self, seed):
         random.seed(seed)

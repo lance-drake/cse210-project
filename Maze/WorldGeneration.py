@@ -27,16 +27,15 @@ class World:
         if movesafe:
             self._tilesVistited.append(nextDir+self._builder._number)
             self._builder.direction = nextDir
-            self._builder.moveDirection(self._LENGTH)
+            self._builder.moveDirection()
             if(nextDir == -1):
-                self._builder.walls[]
-            elif(nextDir == -10):
-                self._builder.walls[] 
+                self._tiles[self._builder._number].walls[2] = True
             elif(nextDir == 1):
-                self._builder.walls[]
+                self._tiles[self._builder._number].walls[0] = True
+            if(nextDir == -10):
+                self._tiles[self._builder._number].walls[3] = True
             elif(nextDir == 10):
-                self._builder.walls[]
-
+                self._tiles[self._builder._number].walls[1] = True
 
     def generateWhiteNoise(self, number):
         noise = [0] * number
