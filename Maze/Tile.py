@@ -1,17 +1,17 @@
+import Position
 class Tile:
 
-    def __init__ (self, number):
-        self._number = number
-        self._visited = False
-        self.walls = [True, True, True, True]#Left Right Top Bottom
+    def __init__ (self, x, y):
+        self.position = Position.Position(x,y)
+        self.walls = [True, True, True, True]#Left Top Right Bottom
 
-    def getTileNumber(self):
-        return self._number
-
-
-    def isVisted(self):
-        return self._visited
-
-    def visit(self):
-        self._visited = True
+    def removeWall(self, nextPos):
+        if(nextPos.getX() == 1):
+            self.walls[2] = False
+        elif(nextPos.getX() == -1):
+            self.walls[0] = False
+        elif(nextPos.getY() == 1):
+            self.walls[1] = False
+        elif(nextPos.getY() == -1):
+            self.walls[3] = False
 
