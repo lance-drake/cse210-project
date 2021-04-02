@@ -26,12 +26,15 @@ class Director(arcade.Window):
         self.my_player=None
 
     def setup(self):
+        #create list for sprites
         self.playersList=arcade.SpriteList()
         self.enemiesList=arcade.SpriteList()
 
+        #create player
         self.my_player=Player()
         self.playersList.append(self.my_player)
 
+        #create enemies
         for i in range(constants. ENEMY_COUNT):
             enemy=Enemy()
             self.enemiesList.append(enemy)
@@ -57,10 +60,6 @@ class Director(arcade.Window):
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
 
-        # If a player releases a key, zero out the speed.
-        # This doesn't work well if multiple keys are pressed.
-        # Use 'better move by keyboard' example if you need to
-        # handle this.
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.my_player.change_y = 0
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
