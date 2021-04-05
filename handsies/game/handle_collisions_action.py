@@ -1,6 +1,6 @@
 from game import constants
 from game.action import Action
-
+from game.AudioStreamButton import AudioStreamButton
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
     
@@ -11,12 +11,14 @@ class HandleCollisionsAction(Action):
     def execute(self, cast, args, director):
         player1 = cast["players"][0]
         player2 = cast["players"][1]
-        
+        audio = AudioStreamButton(constants.SLAP_AUDIO, 1, 0.5)
+
         if player1.get_a_hand().collides_with_sprite(player2.get_a_hand()):
             if(player1.attacker):
                 player1.points += 1
             elif(player2.attacker):
                 player2.points += 1
+            audio.play()
             player1.resetPosition()
             player2.resetPosition()
         if player1.get_b_hand().collides_with_sprite(player2.get_b_hand()):
@@ -24,6 +26,7 @@ class HandleCollisionsAction(Action):
                 player1.points += 1
             elif(player2.attacker):
                 player2.points += 1
+            audio.play()
             player1.resetPosition()
             player2.resetPosition()
 
