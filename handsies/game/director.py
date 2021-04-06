@@ -17,6 +17,7 @@ class Director(arcade.Window):
         super().__init__(screen_width, screen_height)
         self._cast = None
         self._script = None
+        self.background = arcade.load_texture("handsies/images/background.jpg")
 
     def direct_scene(self, cast, script):
         self._cast = cast
@@ -24,7 +25,11 @@ class Director(arcade.Window):
     
     def on_draw(self):
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(0, 0,
+                                            1200, 800,
+                                            self.background)
         self._cue_action(Director.ON_DRAW, None)
+
         
     def on_key_press(self, key, modifiers):
         args = { "key": key, "modifiers": modifiers }
