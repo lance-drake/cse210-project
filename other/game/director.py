@@ -1,26 +1,18 @@
 import arcade
 import random
-
-from game import constants
-from game.move_player import MovePlayer
-from game.draw_actors_action import DrawActorsAction
-from game.handle_collisions_action import HandleCollisionsAction
-from game.move_actors_action import MoveActorsAction
-
-from game.enemy import Enemy
-from game.director import Director
-from game.player import Player
-from game.Action import Action
-
-from Maze import main as maze
+import constants
+from enemy import Enemy
+from player import Player
+#from Maze import main as maze
 
 class Director(arcade.Window):
     def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Handsies")
+        super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, "Handsies")
 
         #entity lists
         self.playersList=None
         self.enemiesList=None
+        arcade.set_background_color(arcade.color.AMAZON)
 
         #player
         self.my_player=None
@@ -31,12 +23,14 @@ class Director(arcade.Window):
         self.enemiesList=arcade.SpriteList()
 
         #create player
-        self.my_player=Player()
+        self.my_player=Player(":resources:images/enemies/fishPink.png")
         self.playersList.append(self.my_player)
+        self.my_player.center_x = 10
+        self.my_player.center_y = 10
 
         #create enemies
         for i in range(constants. ENEMY_COUNT):
-            enemy=Enemy()
+            enemy=Enemy(":resources:images/enemies/frog.png")
             self.enemiesList.append(enemy)
 
     def on_draw(self):
@@ -49,13 +43,13 @@ class Director(arcade.Window):
 
         # If the player presses a key, update the speed
         if key == arcade.key.UP:
-            self.my_player.change_y = PLAYER_MOVE_SCALE
+            self.my_player.change_y = constants.PLAYER_MOVE_SCALE
         elif key == arcade.key.DOWN:
-            self.my_player.change_y = -PLAYER_MOVE_SCALE
+            self.my_player.change_y = -constants.PLAYER_MOVE_SCALE
         elif key == arcade.key.LEFT:
-            self.my_player.change_x = -PLAYER_MOVE_SCALE
+            self.my_player.change_x = -constants.PLAYER_MOVE_SCALE
         elif key == arcade.key.RIGHT:
-            self.my_player.change_x = PLAYER_MOVE_SCALE
+            self.my_player.change_x = constants.PLAYER_MOVE_SCALE
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
@@ -68,11 +62,14 @@ class Director(arcade.Window):
     def update(self, delta_time):
         """Movement and Logic"""
 
+        # Update Players
+        self.playersList.update()
+
         # Update Enemies
         self.enemiesList.update()
 
         # Hits Enemy
-        enemy_hitList=arcade.check_for_collision(self.enemiesList, self.playersList)
+        enemy_hitList=arcade.check_for_collision_with_list(self.enemiesList[0], self.playersList)
 
         for enemy in enemy_hitList:
             # CALL HANDSIE GAME HERE
@@ -83,8 +80,5 @@ class Director(arcade.Window):
                 player.kill()
 
             """
-            
-
-
-        
+            print('cat')
 
